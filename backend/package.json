@@ -1,0 +1,28 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "ts-node src/server.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
+    "@types/express-session": "^1.18.2",
+    "@types/graphql": "^14.2.3",
+    "@types/node": "^24.0.12",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3"
+  },
+  "dependencies": {
+    "@apollo/server": "^4.12.2",
+    "@graphql-tools/merge": "^9.0.24",
+    "bcryptjs": "^3.0.2",
+    "express-session": "^1.18.1",
+    "graphql-passport": "^0.6.8",
+    "passport": "^0.7.0"
+  }
+}
