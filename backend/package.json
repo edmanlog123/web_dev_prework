@@ -11,6 +11,7 @@
   "description": "",
   "devDependencies": {
     "@types/bcryptjs": "^2.4.6",
+    "@types/connect-mongodb-session": "^2.4.8",
     "@types/cors": "^2.8.19",
     "@types/express-session": "^1.18.2",
     "@types/graphql": "^14.2.3",

@@ -1,3 +1,6 @@
+import dotenv from 'dotenv';
+dotenv.config();
+
 import { ApolloServer } from "@apollo/server";
 import { expressMiddleware } from "@apollo/server/express4";
 import { ApolloServerPluginDrainHttpServer } from "@apollo/server/plugin/drainHttpServer";
@@ -6,16 +9,41 @@ import express from "express";
 import http from "http";
 import cors from "cors";
 
+import passport from "passport";
+import session from "express-session";
+import connectMongo from "connect-mongodb-session";
+
 import mergedResolvers from "./graphql/resolvers";
 import mergedTypeDefs from "./graphql/typeDefs";
+
+
+import { connectDB } from "./db/connectDB";
+
 
 const app = express();
 const httpServer = http.createServer(app);
 
-import dotenv from 'dotenv';
-import { connectDB } from "./db/connectDB";
+const MongoStore = connectMongo(session);
 
-dotenv.config();
+if (!process.env.MONGO_URI) throw new Error("MONGO_URI is not set in environment variables.");
+const store = new MongoStore({
+  uri: process.env.MONGO_URI,
+  collection: "sessions",
+});
+
+
+store.on("error", (error) => {
+  console.log(error);
+});
+
+if (!process.env.SESSION_SECRET) throw new Error("SESSION_SECRET is not set in environment variables.");
+
+app.use(session({
+  secret: process.env.SESSION_SECRET,
+  resave: false,
+  saveUninitialized: false,
+  store,
+}));
 
 const server = new ApolloServer({
   typeDefs: mergedTypeDefs,
