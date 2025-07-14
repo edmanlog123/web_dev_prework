@@ -2,6 +2,7 @@ const creatorTypeDef = `#graphql
   type Creator {
     _id: ID!
     name: String!
+    userId: ID!
     category: String!
     bio: String
     image: String
