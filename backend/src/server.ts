@@ -60,7 +60,7 @@ const server = new ApolloServer({
     cors<cors.CorsRequest>(),
     express.json(),
     expressMiddleware(server, {
-      context: async ({ req }) => ({ token: req.headers.token }),
+      context: async ({ req, res }) => ({ token: req.headers.token, res }),
     }),
   );
 

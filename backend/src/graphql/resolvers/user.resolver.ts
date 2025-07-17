@@ -1,4 +1,5 @@
 import users from "../../dummy/data";
+import { GraphQLContext } from "../types/context";
 // Placeholder context types (can expand later)
 interface SignUpInput {
   username: string;
@@ -19,7 +20,8 @@ const userResolver = {
       return users[0]; // Replace later with real auth
     },
 
-    user: (_: any, { userId }: { userId: string }) => {
+    user: (_: any, { userId }: { userId: string }, context: GraphQLContext) => {
+      console.log(context.token);
       return users.find((user) => user._id === userId) || null;
     },
   },
