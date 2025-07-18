@@ -1,7 +1,3 @@
-// src/types/context.ts or src/context.ts
 
-export interface GraphQLContext {
-    token?: string;
-    res?: Response;
-  }
-  
+import { Context } from "graphql-passport/lib/buildContext";
+export type GraphQLContext = Context<any>; // or Context<User> if you have one

@@ -20,6 +20,8 @@ import mergedTypeDefs from "./graphql/typeDefs";
 import { connectDB } from "./db/connectDB";
 
 
+import { buildContext } from "graphql-passport";
+
 const app = express();
 const httpServer = http.createServer(app);
 
@@ -57,10 +59,11 @@ const server = new ApolloServer({
   // ✅ Only call expressMiddleware after server has started
   app.use(
     '/',
-    cors<cors.CorsRequest>(),
+    cors<cors.CorsRequest>({origin: "http://localhost:3000",
+      credentials: true,}),
     express.json(),
     expressMiddleware(server, {
-      context: async ({ req, res }) => ({ token: req.headers.token, res }),
+      context: async ({ req, res }) => buildContext({ req, res }),
     }),
   );
 
