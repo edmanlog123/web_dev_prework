@@ -21,7 +21,9 @@ import { connectDB } from "./db/connectDB";
 
 
 import { buildContext } from "graphql-passport";
+import { configurePassport } from './passport/passport.config';
 
+configurePassport();
 const app = express();
 const httpServer = http.createServer(app);
 
@@ -46,6 +48,9 @@ app.use(session({
   saveUninitialized: false,
   store,
 }));
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 const server = new ApolloServer({
   typeDefs: mergedTypeDefs,

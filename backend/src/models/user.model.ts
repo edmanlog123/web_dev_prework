@@ -1,4 +1,4 @@
-import { Document, Schema, model } from "mongoose";
+import { Document, Schema, model, Types } from "mongoose";
 
 export interface IUser extends Document {
 	username: string;
@@ -6,6 +6,7 @@ export interface IUser extends Document {
 	password: string;
 	profilePicture?: string;
 	gender: "male" | "female";
+	savedCreators?: Types.ObjectId[];
 }
 
 const userSchema = new Schema<IUser>(
@@ -32,6 +33,7 @@ const userSchema = new Schema<IUser>(
 			enum: ["male", "female"],
 			required: true,
 		},
+		savedCreators: [{ type: Schema.Types.ObjectId, ref: "Creator" }],
 	},
 	{ timestamps: true }
 );
