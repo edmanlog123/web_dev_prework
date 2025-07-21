@@ -1,11 +1,12 @@
 import { useState } from 'react'
+import AuthBox from './components/AuthBox'
 
 function App() {
   const [count, setCount] = useState(0)
 
   return (
     <>
-      <h1 className='text-red-300'>Eddie</h1>
+      <AuthBox/>
     </>
   )
 }
