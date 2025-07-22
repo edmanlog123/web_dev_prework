@@ -3,7 +3,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import LoginForm from "./LoginForm";
 import SignupForm from "./SignupForm";
-
+import '../index.css'
 
 export default function AuthBox() {
   const [tab, setTab] = useState<"login" | "signup">("login");
