@@ -1,5 +1,5 @@
 import { useMutation } from "@apollo/client";
-import { LOGIN_MUTATION } from "../graphql/user.mutation.ts"; // adjust the path if needed
+import { LOGIN_MUTATION } from "../graphql/mutations/user.mutation.ts"; // adjust the path if needed
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
@@ -17,7 +17,9 @@ export default function LoginForm() {
 		password: "",
 	});
 
-  const [login, { loading }] = useMutation(LOGIN_MUTATION);
+  const [login, { loading }] = useMutation(LOGIN_MUTATION, {
+    refetchQueries: ["GetAuthenticatedUser"],
+  });
 
 
   const navigate = useNavigate();

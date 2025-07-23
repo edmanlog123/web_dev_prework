@@ -2,25 +2,29 @@ import { useState } from "react";
 import { useMutation } from "@apollo/client";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
-import { SIGNUP_MUTATION } from "../graphql/user.mutation.ts";
+import { SIGNUP_MUTATION } from "../graphql/mutations/user.mutation.ts";
 
 interface SignupData {
   username: string;
-  email: string;
+  name: string;
   password: string;
+  gender: string;
 }
 
 export default function SignupForm() {
   const [signupData, setSignupData] = useState<SignupData>({
     username: "",
-    email: "",
+    name: "",
     password: "",
+    gender:""
   });
 
   const navigate = useNavigate();
-  const [signup, { loading }] = useMutation(SIGNUP_MUTATION);
+  const [signup, { loading }] = useMutation(SIGNUP_MUTATION, {
+    refetchQueries: ["GetAuthenticatedUser"],
+  });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement| HTMLSelectElement>) => {
     const { name, value } = e.target;
     setSignupData((prev) => ({
       ...prev,
@@ -61,10 +65,10 @@ export default function SignupForm() {
         className="w-full px-4 py-2 border rounded-lg outline-none focus:ring-2 focus:ring-black"
       />
       <input
-        type="email"
-        name="email"
-        placeholder="Email"
-        value={signupData.email}
+        type="text"
+        name="name"
+        placeholder="Full Name"
+        value={signupData.name}
         onChange={handleChange}
         required
         className="w-full px-4 py-2 border rounded-lg outline-none focus:ring-2 focus:ring-black"
@@ -78,6 +82,20 @@ export default function SignupForm() {
         required
         className="w-full px-4 py-2 border rounded-lg outline-none focus:ring-2 focus:ring-black"
       />
+      <select
+        name="gender"
+        value={signupData.gender}
+        onChange={handleChange}
+        required
+        className="w-full px-4 py-2 border rounded-lg outline-none focus:ring-2 focus:ring-black"
+      >
+        <option value="" disabled>
+          Select Gender
+        </option>
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+        <option value="Other">Other</option>
+      </select>
       <button
         type="submit"
         disabled={loading}
