@@ -4,6 +4,8 @@ import { GET_AUTHENTICATED_USER } from "./graphql/queries/user.query";
 import AuthBox from "./components/AuthBox";
 import Homepage from "./pages/Homepage";
 import NotFoundPage from "./pages/NotFoundPage";
+import Layout from "./components/Layout";
+import { Toaster } from "react-hot-toast";
 
 export default function App() {
   const { data, loading } = useQuery(GET_AUTHENTICATED_USER);
@@ -11,6 +13,7 @@ export default function App() {
   if (loading) return null;
 
   return (
+    <>
     <Routes>
       {/* Public Route - AuthBox with login/signup toggle */}
       <Route
@@ -20,12 +23,21 @@ export default function App() {
 
       {/* Protected Route - Homepage */}
       <Route
-        path="/"
-        element={data?.authUser ? <Homepage /> : <Navigate to="/login" />}
-      />
-
-      {/* Catch-all for unknown routes */}
-      <Route path="*" element={<NotFoundPage />} />
+          path="*"
+          element={
+            <Layout>
+              <Routes>
+                <Route
+                  path="/"
+                  element={data?.authUser ? <Homepage /> : <Navigate to="/login" />}
+                />
+                <Route path="*" element={<NotFoundPage />} />
+              </Routes>
+            </Layout>
+          }
+          />
     </Routes>
+    <Toaster/>
+    </>
   );
 }
