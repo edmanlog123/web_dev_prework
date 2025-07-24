@@ -20,39 +20,38 @@ export function DefaultSidebar() {
   };
 
   return (
-    <nav className="flex flex-col h-full bg-[#111318] text-white py-8 px-4 w-64">
+    <nav className="flex flex-col h-full bg-[#000000] text-white py-8 px-4 w-64">
       <div className="mb-10 px-2">
-        <span className="text-2xl font-bold tracking-tight">Expense Tracker</span>
+        <span className="text-2xl font-bold tracking-tight ">CreatorVerse</span>
       </div>
       <ul className="flex-1 space-y-2">
         <li>
-          <Link to="/" className={`flex items-center gap-3 px-3 py-2 rounded-lg transition hover:bg-[#23272f] ${pathname === "/" ? "bg-[#23272f]" : ""}`}>
+          <Link to="/" className={`flex items-center gap-3 px-3 py-2 rounded-lg transition hover:bg-[#cccfd5] ${pathname === "/" ? "bg-[#cccfd5]" : ""}`}>
             <PresentationChartBarIcon className="h-5 w-5" />
             <span>Dashboard</span>
           </Link>
         </li>
         <li>
-          <Link to="/transaction/new" className={`flex items-center gap-3 px-3 py-2 rounded-lg transition hover:bg-[#23272f]`}>
+          <Link to="/transaction/new" className={`flex items-center gap-3 px-3 py-2 rounded-lg transition hover:bg-[#cccfd5] `}>
             <PlusCircleIcon className="h-5 w-5" />
-            <span>Add Transaction</span>
+            <span>Add Creator</span>
           </Link>
         </li>
         <li>
-          <Link to="/transactions" className={`flex items-center gap-3 px-3 py-2 rounded-lg transition hover:bg-[#23272f]`}>
+          <Link to="/transactions" className={`flex items-center gap-3 px-3 py-2 rounded-lg transition hover:bg-[#cccfd5]`}>
             <ClipboardDocumentListIcon className="h-5 w-5" />
             <span>All transactions</span>
-            <span className="ml-auto text-xs bg-[#23272f] px-2 py-0.5 rounded-full">14</span>
           </Link>
         </li>
         <li>
-          <Link to="/settings" className={`flex items-center gap-3 px-3 py-2 rounded-lg transition hover:bg-[#23272f]`}>
+          <Link to="/settings" className={`flex items-center gap-3 px-3 py-2 rounded-lg transition hover:bg-[#cccfd5]`}>
             <Cog6ToothIcon className="h-5 w-5" />
             <span>Settings</span>
           </Link>
         </li>
       </ul>
       <div className="mt-auto">
-        <button onClick={handleLogout} className="flex items-center gap-3 px-3 py-2 rounded-lg w-full transition hover:bg-[#23272f] text-left">
+        <button onClick={handleLogout} className="flex items-center gap-3 px-3 py-2 rounded-lg w-full transition hover:bg-[#cccfd5] text-left">
           <PowerIcon className="h-5 w-5" />
           <span>Log Out</span>
         </button>
