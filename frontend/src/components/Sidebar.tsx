@@ -1,5 +1,5 @@
 import { PresentationChartBarIcon, PlusCircleIcon, ClipboardDocumentListIcon, Cog6ToothIcon, PowerIcon } from "@heroicons/react/24/solid";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { NavLink,Link, useLocation, useNavigate } from "react-router-dom";
 import { useMutation } from "@apollo/client";
 import { LOGOUT_MUTATION } from "../graphql/mutations/user.mutation";
 import { toast } from "react-hot-toast";
@@ -26,22 +26,33 @@ export function DefaultSidebar() {
       </div>
       <ul className="flex-1 space-y-2">
         <li>
-          <Link to="/" className={`flex items-center gap-3 px-3 py-2 rounded-lg transition hover:bg-[#cccfd5] ${pathname === "/" ? "bg-[#cccfd5]" : ""}`}>
+          <NavLink
+            to="/"
+            className={({ isActive }) =>
+              `flex items-center gap-3 px-3 py-2 rounded-lg transition ${
+                isActive ? "bg-[#cccfd5]" : "hover:bg-[#eee]"
+              }`
+            }
+          >
             <PresentationChartBarIcon className="h-5 w-5" />
             <span>Dashboard</span>
-          </Link>
+          </NavLink>
         </li>
         <li>
-          <Link to="/transaction/new" className={`flex items-center gap-3 px-3 py-2 rounded-lg transition hover:bg-[#cccfd5] `}>
+          <NavLink to="/add" className={({ isActive }) =>`flex items-center gap-3 px-3 py-2 rounded-lg transition ${
+                isActive ? "bg-[#cccfd5]" : "hover:bg-[#eee]"
+              }`}>
             <PlusCircleIcon className="h-5 w-5" />
             <span>Add Creator</span>
-          </Link>
+          </NavLink>
         </li>
         <li>
-          <Link to="/transactions" className={`flex items-center gap-3 px-3 py-2 rounded-lg transition hover:bg-[#cccfd5]`}>
+        <NavLink to="/creators" className={({ isActive }) =>`flex items-center gap-3 px-3 py-2 rounded-lg transition ${
+                isActive ? "bg-[#cccfd5]" : "hover:bg-[#eee]"
+              }`}>
             <ClipboardDocumentListIcon className="h-5 w-5" />
-            <span>All transactions</span>
-          </Link>
+            <span>All Creators</span>
+          </NavLink>
         </li>
         <li>
           <Link to="/settings" className={`flex items-center gap-3 px-3 py-2 rounded-lg transition hover:bg-[#cccfd5]`}>

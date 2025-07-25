@@ -6,6 +6,10 @@ import Homepage from "./pages/Homepage";
 import NotFoundPage from "./pages/NotFoundPage";
 import Layout from "./components/Layout";
 import { Toaster } from "react-hot-toast";
+import AddCreatorpage from "./pages/AddCreatorpage";
+import Creatorspage from "./pages/Creatorspage";
+import Settingspage from "./pages/Settingspage";
+
 
 export default function App() {
   const { data, loading } = useQuery(GET_AUTHENTICATED_USER);
@@ -30,6 +34,18 @@ export default function App() {
                 <Route
                   path="/"
                   element={data?.authUser ? <Homepage /> : <Navigate to="/login" />}
+                />
+                <Route
+                  path="/add"
+                  element={data?.authUser ? <AddCreatorpage /> : <Navigate to="/login" />}
+                />
+                <Route
+                  path="/creators"
+                  element={data?.authUser ? <Creatorspage /> : <Navigate to="/login" />}
+                />
+                <Route
+                  path="/settings"
+                  element={data?.authUser ? <Settingspage /> : <Navigate to="/login" />}
                 />
                 <Route path="*" element={<NotFoundPage />} />
               </Routes>
