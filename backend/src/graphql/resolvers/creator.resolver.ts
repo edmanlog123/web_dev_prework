@@ -1,5 +1,3 @@
-import { creators } from "../../dummy/data";
-
 import CreatorModel from "../../models/creator.model";
 import type { ICreator } from "../../models/creator.model";
 
@@ -7,16 +5,21 @@ interface GraphQLContext {
   getUser: () => { _id: string } | null;
 }
 
+interface LinkInput {
+  type: string;
+  url: string;
+}
+
 interface CreatorInput {
   name: string;
-  category: string;
+  links?: LinkInput[]
   bio?: string;
   image?: string;
 }
 
 interface UpdateCreatorInput {
   name?: string;
-  category?: string;
+  links?: LinkInput[]
   bio?: string;
   image?: string;
 }

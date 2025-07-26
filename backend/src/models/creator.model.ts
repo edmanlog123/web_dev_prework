@@ -2,6 +2,11 @@
 
 import mongoose, { Types } from "mongoose";
 
+const LinkSchema = new mongoose.Schema({
+  type: { type: String, required: true },
+  url: { type: String, required: true },
+});
+
 const creatorSchema = new mongoose.Schema(
   {
     name: {
@@ -13,10 +18,7 @@ const creatorSchema = new mongoose.Schema(
 		ref: "User",
 		required: true,
 	},
-    category: {
-      type: String,
-      required: true,
-    },
+  links: { type: [LinkSchema], default: [] },
     bio: {
       type: String,
       default: "",
@@ -31,11 +33,16 @@ const creatorSchema = new mongoose.Schema(
 
 const Creator = mongoose.model("Creator", creatorSchema);
 
+export interface Link {
+  type: string;
+  url: string;
+}
+
 export interface ICreator {
   _id: Types.ObjectId;
   name: string;
   userId: Types.ObjectId;
-  category: string;
+  links: Link[];
   bio?: string;
   image?: string;
 }

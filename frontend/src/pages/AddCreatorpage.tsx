@@ -3,15 +3,17 @@ import { CREATE_CREATOR } from "../graphql/mutations/creator.mutation";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
+import { ALL_CREATORS } from "../graphql/queries/creator.query";
 
 export default function AddCreatorpage() {
   const navigate = useNavigate();
   const [form, setForm] = useState({
     name: "",
-    category: "",
     bio: "",
     image: ""
   });
+
+  const [links, setLinks] = useState([{ type: "", url: "" }]);
 
   const [createCreator, { loading }] = useMutation(CREATE_CREATOR, {
     onCompleted: () => {
@@ -21,16 +23,34 @@ export default function AddCreatorpage() {
     onError: (err) => {
       toast.error(err.message || "Failed to add creator");
     },
-    refetchQueries: ["AllCreators"]
+    refetchQueries: [{ query: ALL_CREATORS }]
   });
 
+  
+
+  const handleLinkChange = (index: number, field: string, value: string) => {
+    const updated = [...links];
+    updated[index][field as "type" | "url"] = value;
+    setLinks(updated);
+  };
+  
+  const addLink = () => {
+    setLinks([...links, { type: "", url: "" }]);
+  };
+  
+  const removeLink = (index: number) => {
+    const updated = [...links];
+    updated.splice(index, 1);
+    setLinks(updated);
+  };
+  
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    await createCreator({ variables: { input: form } });
+    await createCreator({ variables: { input: {...form, links} } });
   };
 
   return (
@@ -45,14 +65,6 @@ export default function AddCreatorpage() {
           onChange={handleChange}
           className="w-full px-4 py-2 border rounded"
           required
-        />
-        <input
-          type="text"
-          name="category"
-          placeholder="Category"
-          value={form.category}
-          onChange={handleChange}
-          className="w-full px-4 py-2 border rounded"
         />
         <textarea
           name="bio"
@@ -69,6 +81,47 @@ export default function AddCreatorpage() {
           onChange={handleChange}
           className="w-full px-4 py-2 border rounded"
         />
+        <div className="space-y-3">
+  <h2 className="text-sm font-medium">Links</h2>
+  {links.map((link, index) => (
+    <div key={index} className="flex gap-2 items-center">
+      <select
+        value={link.type}
+        onChange={(e) => handleLinkChange(index, "type", e.target.value)}
+        className="border p-2 rounded w-1/3"
+        required
+      >
+        <option value="">Select Platform</option>
+        <option value="YouTube">YouTube</option>
+        <option value="Twitter">Twitter</option>
+        <option value="Instagram">Instagram</option>
+      </select>
+      <input
+        type="url"
+        value={link.url}
+        onChange={(e) => handleLinkChange(index, "url", e.target.value)}
+        className="border p-2 rounded flex-1"
+        placeholder="https://..."
+        required
+      />
+      <button
+        type="button"
+        onClick={() => removeLink(index)}
+        className="text-red-500 font-bold text-xl px-2"
+      >
+        &times;
+      </button>
+    </div>
+  ))}
+  <button
+    type="button"
+    onClick={addLink}
+    className="text-sm text-blue-600 underline"
+  >
+    + Add Link
+  </button>
+</div>
+
         <button
           type="submit"
           disabled={loading}

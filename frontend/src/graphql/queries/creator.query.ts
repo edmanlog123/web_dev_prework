@@ -5,9 +5,12 @@ export const ALL_CREATORS = gql`
         allCreators {
             _id
             name
-            category
             bio
             image
+            links {
+        type
+        url
+      }
         }
     }
 `;

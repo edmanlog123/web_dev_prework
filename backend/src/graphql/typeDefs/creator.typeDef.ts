@@ -3,7 +3,7 @@ const creatorTypeDef = `#graphql
     _id: ID!
     name: String!
     userId: ID!
-    category: String!
+    links: [Link!]!
     bio: String
     image: String
   }
@@ -13,16 +13,27 @@ const creatorTypeDef = `#graphql
     creator(creatorId: ID!): Creator
   }
 
+  type Link {
+  type: String!
+  url: String!
+}
+
   input CreatorInput {
     name: String!
-    category: String!
+    links: [LinkInput!]
     bio: String
     image: String
   }
 
+  input LinkInput {
+  type: String!
+  url: String!
+  }
+
+
   input UpdateCreatorInput {
     name: String
-    category: String
+    links: [LinkInput!]
     bio: String
     image: String
   }

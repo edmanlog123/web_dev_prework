@@ -5,8 +5,11 @@ export const CREATE_CREATOR = gql`
       createCreator(input:$input){
         _id
         name
-      category
       bio
       image
+      links {
+        type
+        url
+      }
       }
     }`;

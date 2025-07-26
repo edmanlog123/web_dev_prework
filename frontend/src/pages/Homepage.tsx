@@ -36,7 +36,6 @@ const latestCreators = [...allCreators]
         <CreatorCard
           key={creator._id}
           name={creator.name}
-          category={creator.category}
           bio={creator.bio}
           image={creator.image}
         />

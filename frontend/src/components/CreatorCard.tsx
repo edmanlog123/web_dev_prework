@@ -3,12 +3,11 @@ import { FaYoutube, FaTwitter, FaInstagram } from "react-icons/fa";
 
 type Props = {
   name: string;
-  category: string;
   bio: string;
   image: string;
 };
 
-export default function CreatorCard({ name, category, bio, image }: Props) {
+export default function CreatorCard({ name, bio, image }: Props) {
   return (
     <div className="relative rounded-lg overflow-hidden border border-gray-200 shadow w-[250px] shrink-0">
       {/* Image */}
