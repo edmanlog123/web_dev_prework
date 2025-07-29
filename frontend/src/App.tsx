@@ -9,7 +9,6 @@ import { Toaster } from "react-hot-toast";
 import AddCreatorpage from "./pages/AddCreatorpage";
 import Creatorspage from "./pages/Creatorspage";
 import Settingspage from "./pages/Settingspage";
-import TestGemini from "./pages/TestGemini";
 
 export default function App() {
   const { data, loading } = useQuery(GET_AUTHENTICATED_USER);
@@ -47,7 +46,6 @@ export default function App() {
                   path="/settings"
                   element={data?.authUser ? <Settingspage /> : <Navigate to="/login" />}
                 />
-                <Route path="/test-gemini" element={<TestGemini />} />
                 <Route path="*" element={<NotFoundPage />} />
               </Routes>
             </Layout>

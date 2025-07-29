@@ -23,6 +23,8 @@
   "dependencies": {
     "@apollo/server": "^4.12.2",
     "@graphql-tools/merge": "^9.0.24",
+    "@langchain/core": "^0.3.66",
+    "@langchain/google-genai": "^0.2.16",
     "bcryptjs": "^3.0.2",
     "connect-mongodb-session": "^5.0.0",
     "dotenv": "^17.2.0",

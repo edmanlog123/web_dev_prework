@@ -4,6 +4,9 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import { ALL_CREATORS } from "../graphql/queries/creator.query";
+import { useLazyQuery } from "@apollo/client";
+import { GET_CREATOR_SUGGESTION } from "../graphql/queries/creator.query";
+
 
 export default function AddCreatorpage() {
   const navigate = useNavigate();
@@ -14,6 +17,10 @@ export default function AddCreatorpage() {
   });
 
   const [links, setLinks] = useState([{ type: "", url: "" }]);
+
+  const [searchName, setSearchName] = useState("");
+const [getSuggestion, { data, loading: loadingSuggestion, error }] = useLazyQuery(GET_CREATOR_SUGGESTION);
+
 
   const [createCreator, { loading }] = useMutation(CREATE_CREATOR, {
     onCompleted: () => {
@@ -56,6 +63,35 @@ export default function AddCreatorpage() {
   return (
     <div className="max-w-xl mx-auto mt-10 p-6 bg-white rounded-lg shadow">
       <h1 className="text-2xl font-bold mb-6">Add New Creator</h1>
+
+      <div className="mb-4">
+  <input
+    type="text"
+    placeholder="Search Creator"
+    value={searchName}
+    onChange={(e) => setSearchName(e.target.value)}
+    className="w-full p-2 border rounded"
+  />
+  <button
+    onClick={async () => {
+      const res = await getSuggestion({ variables: { name: searchName } });
+      const suggestion = res.data?.getCreatorSuggestion;
+
+      if (suggestion) {
+        setForm((prev) => ({
+          ...prev,
+          bio: suggestion.bio,
+          image: suggestion.image
+        }));
+        setLinks(suggestion.links); // this auto-renders extra link fields
+      }
+    }}
+    className="mt-2 px-4 py-2 bg-blue-500 text-white rounded"
+  >
+    Fill In
+  </button>
+</div>
+
       <form onSubmit={handleSubmit} className="space-y-4">
         <input
           type="text"

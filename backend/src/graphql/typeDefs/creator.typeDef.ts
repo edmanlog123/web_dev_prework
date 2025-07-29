@@ -11,6 +11,7 @@ const creatorTypeDef = `#graphql
   type Query {
     allCreators: [Creator!]!
     creator(creatorId: ID!): Creator
+    getCreatorSuggestion(name: String!): Creator!
   }
 
   type Link {

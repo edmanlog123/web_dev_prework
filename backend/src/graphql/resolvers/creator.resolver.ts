@@ -1,5 +1,7 @@
 import CreatorModel from "../../models/creator.model";
 import type { ICreator } from "../../models/creator.model";
+import { fetchCreatorSuggestion } from "../../services/geminiService";
+import { Types } from "mongoose";
 
 interface GraphQLContext {
   getUser: () => { _id: string } | null;
@@ -39,6 +41,27 @@ const creatorResolver = {
 
       return await CreatorModel.findOne({ _id: creatorId, userId: user._id });
     },
+
+    getCreatorSuggestion: async (
+      _: any,
+      { name }: { name: string },
+      context: GraphQLContext
+    ): Promise<ICreator> => {
+      const user = context.getUser();
+      if (!user) throw new Error("Unauthorized");
+    
+      const result = await fetchCreatorSuggestion(name);
+    
+      return {
+        _id: new Types.ObjectId(), // temporary ID since this is not from Mongo
+        name,
+        userId: new Types.ObjectId(user._id),
+        bio: result.bio || "",
+        image: result.image || "",
+        links: result.links || [],
+      };
+    },
+    
   },
 
   Mutation: {

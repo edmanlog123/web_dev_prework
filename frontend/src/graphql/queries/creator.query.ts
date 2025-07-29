@@ -14,3 +14,16 @@ export const ALL_CREATORS = gql`
         }
     }
 `;
+
+export const GET_CREATOR_SUGGESTION = gql`
+  query GetCreatorSuggestion($name: String!) {
+    getCreatorSuggestion(name: $name) {
+      bio
+      image
+      links {
+        type
+        url
+      }
+    }
+  }
+`;
