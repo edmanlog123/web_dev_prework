@@ -53,7 +53,17 @@ export default function AddCreatorPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    await createCreator({ variables: { input: { ...form, links } } });
+    const cleanedLinks = links.map(({ type, url }) => ({ type, url }));
+
+await createCreator({
+  variables: {
+    input: {
+      ...form,
+      links: cleanedLinks,
+    },
+  },
+});
+
   };
 
   const handleFillIn = async () => {
@@ -62,6 +72,7 @@ export default function AddCreatorPage() {
 
 
     if (suggestion) {
+
       setForm((prev) => ({
         ...prev,
         name: searchName,

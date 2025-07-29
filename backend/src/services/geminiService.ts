@@ -23,7 +23,16 @@ Return ONLY a valid JSON object with the following format:
   ]
 }
 
+For the "image" field, return a high-quality image URL of the person as if it was obtained by:
+1. Searching their name on Google Images,
+2. Clicking on an image to open the preview,
+3. Right-clicking → “Open image in new tab”,
+4. Copying that final image URL.
+
+Do not use Wikimedia, Wikipedia, or direct ".jpg"/".webp" file dumps from obscure CDN links. Prefer images hosted on reputable domains (e.g. "pbs.twimg.com", "cdn.britannica.com", news sites, etc.) that will render when used in an <img> tag. The image must appear visibly in a web browser.
+
 No extra text. No markdown. Just JSON.
+
 `;
 
 export async function fetchCreatorSuggestion(name: string) {
