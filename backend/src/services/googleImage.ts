@@ -1,25 +1,24 @@
-import axios from "axios";
+import axios from 'axios';
 
-const API_KEY = process.env.GOOGLE_CUSTOM_SEARCH_API_KEY;
-const CX = process.env.GOOGLE_CUSTOM_SEARCH_CX;
+const ZENSERP_API_KEY = '58bc3c30-6eb3-11f0-9b60-2988757e4113';
 
-export async function getImageUrl(query: string): Promise<string | null> {
+async function searchImages(query: string): Promise<void> {
+  const url = 'https://app.zenserp.com/api/v2/search';
+  
   try {
-    const response = await axios.get("https://customsearch.googleapis.com/customsearch/v1", {
+    const response = await axios.get(url, {
       params: {
+        apikey: ZENSERP_API_KEY,
         q: query,
-        searchType: "image",
-        cx: CX,
-        key: API_KEY,
-        num: 1,
-        safe: "high",
-      },
+        tbm: 'isch',     // image search mode
+        num: 10          // number of results to return
+      }
     });
 
-    const imageLink = response.data.items?.[0]?.link;
-    return imageLink || null;
-  } catch (error: any) {
-    console.error("Google Image Search Error:", error?.response?.data || error.message);
-    return null;
+    console.log(response.data);
+  } catch (error) {
+    console.error('Zenserp API request failed:', error);
   }
 }
+
+searchImages("Kai Cenat");
