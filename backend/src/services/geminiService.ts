@@ -15,7 +15,6 @@ Return ONLY a valid JSON object with the following format:
 
 {
   "bio": "...",
-  "image": "...",
   "links": [
     { "type": "YouTube", "url": "..." },
     { "type": "Twitter", "url": "..." },
