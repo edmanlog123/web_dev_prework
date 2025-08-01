@@ -1,6 +1,7 @@
 import CreatorModel from "../../models/creator.model";
 import type { ICreator } from "../../models/creator.model";
 import { fetchCreatorSuggestion } from "../../services/geminiService";
+import { getTop5Thumbnails } from '../../services/googleImage';
 import { Types } from "mongoose";
 
 interface GraphQLContext {
@@ -51,13 +52,15 @@ const creatorResolver = {
       if (!user) throw new Error("Unauthorized");
     
       const result = await fetchCreatorSuggestion(name);
-    
+
+      const thumbnails = await getTop5Thumbnails(name);
+
       return {
         _id: new Types.ObjectId(), // temporary ID since this is not from Mongo
         name,
         userId: new Types.ObjectId(user._id),
         bio: result.bio || "",
-        image: result.image || "",
+        image: thumbnails[0] || "",
         links: result.links || [],
       };
     },
