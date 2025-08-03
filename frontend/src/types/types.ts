@@ -4,4 +4,8 @@ export type Creator = {
     category: string;
     bio: string;
     image: string;
+    links: {
+      type: string;
+      url: string;
+    }[];
   };

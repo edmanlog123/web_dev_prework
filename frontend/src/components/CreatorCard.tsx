@@ -5,9 +5,10 @@ type Props = {
   name: string;
   bio: string;
   image: string;
+  onEdit?: () => void;
 };
 
-export default function CreatorCard({ name, bio, image }: Props) {
+export default function CreatorCard({ name, bio, image, onEdit }: Props) {
   return (
     <div className="relative rounded-lg overflow-hidden border border-gray-200 shadow w-[250px] shrink-0">
       {/* Image */}
@@ -20,7 +21,12 @@ export default function CreatorCard({ name, bio, image }: Props) {
       {/* Top-right icons */}
       <div className="absolute top-2 right-2 flex gap-2">
         <InformationCircleIcon className="h-5 w-5 text-white bg-black bg-opacity-50 rounded-full p-0.5" />
-        <PencilIcon className="h-5 w-5 text-white bg-black bg-opacity-50 rounded-full p-0.5" />
+        {onEdit && (
+  <button onClick={onEdit}>
+    <PencilIcon className="h-5 w-5 text-white bg-black bg-opacity-50 rounded-full p-0.5" />
+  </button>
+)}
+
       </div>
 
       {/* Content */}
