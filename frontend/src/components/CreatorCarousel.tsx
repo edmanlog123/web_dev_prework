@@ -1,4 +1,4 @@
-import CreatorCard from "./CreatorCard";
+import CreatorCardLarge from "./CreatorCardLarge";
 import type { Creator } from "../types/types";
 
 interface Props {
@@ -18,7 +18,7 @@ export default function CreatorCarousel({ creators, onEdit }: Props) {
       >
         {looped.map((creator, idx) => (
           <div key={idx} className="mx-4">
-            <CreatorCard
+            <CreatorCardLarge
               name={creator.name}
               bio={creator.bio}
               image={creator.image}
