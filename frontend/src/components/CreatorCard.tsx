@@ -5,6 +5,10 @@ type Props = {
   name: string;
   bio: string;
   image: string;
+  links: {
+    type: string;
+    url: string;
+  }[];
   onEdit?: () => void;
 };
 

@@ -5,7 +5,7 @@ import { ALL_CREATORS } from "../graphql/queries/creator.query";
 import CreatorCard from "../components/CreatorCard";
 import { useState, useEffect } from "react";
 import type { Creator } from "../types/types";
-
+import CreatorCarousel from "../components/CreatorCarousel";
 import EditCreatorModal from "../components/EditCreatorModal";
 
 export default function HomePage() {
@@ -33,25 +33,11 @@ export default function HomePage() {
   const user = data?.authUser;
   const allCreators = creatorsData?.allCreators || [];
 
-  const latestCreators = [...allCreators]
-    .sort((a, b) => b._id.localeCompare(a._id))
-    .slice(0, 5);
 
   return (
     <div className="p-4">
       <h1 className="text-2xl font-bold">Welcome, {user?.name}!</h1>
-      <div className="flex space-x-4 overflow-x-auto pb-2">
-        {latestCreators.map((creator) => (
-          <CreatorCard
-            key={creator._id}
-            name={creator.name}
-            bio={creator.bio}
-            image={creator.image}
-            onEdit={() => setEditingCreator(creator)}
-          />
-        ))}
-      </div>
-
+      <CreatorCarousel creators={allCreators} onEdit={setEditingCreator} />
       {editingCreator && (
       <EditCreatorModal
         creator={editingCreator}
