@@ -12,7 +12,7 @@ type Props = {
   onEdit?: () => void;
 };
 
-export default function CreatorCard({ name, bio, image, onEdit }: Props) {
+export default function CreatorCard({ name, bio, image, links, onEdit }: Props) {
   return (
     <div className="relative rounded-lg overflow-hidden border border-gray-200 shadow w-[250px] shrink-0">
       {/* Image */}
@@ -37,10 +37,32 @@ export default function CreatorCard({ name, bio, image, onEdit }: Props) {
       <div className="p-4 bg-white">
         <h3 className="text-sm font-bold text-blue-700 uppercase">{name}</h3>
         <div className="flex items-center space-x-2 mt-1 mb-2 text-gray-600">
-          <FaYoutube className="w-4 h-4" />
-          <FaTwitter className="w-4 h-4" />
-          <FaInstagram className="w-4 h-4" />
-        </div>
+  {links.map((link) => {
+    const Icon =
+      link.type === "YouTube"
+        ? FaYoutube
+        : link.type === "Twitter"
+        ? FaTwitter
+        : link.type === "Instagram"
+        ? FaInstagram
+        : null;
+
+    if (!Icon || !link.url) return null;
+
+    return (
+      <a
+        key={link.type}
+        href={link.url}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="hover:text-black transition-colors"
+      >
+        <Icon className="w-4 h-4" />
+      </a>
+    );
+  })}
+</div>
+
         <p className="text-sm text-gray-800 line-clamp-3">{bio}</p>
       </div>
     </div>

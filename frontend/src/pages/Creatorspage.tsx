@@ -29,6 +29,7 @@ export default function Creatorspage() {
             name={creator.name}
             bio={creator.bio}
             image={creator.image}
+            links={creator.links}
             onEdit={() => setEditingCreator(creator)}
           />
         ))}
