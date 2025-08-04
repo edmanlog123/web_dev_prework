@@ -3,8 +3,12 @@ import { ALL_CREATORS } from "../graphql/queries/creator.query";
 import CreatorCard from "../components/CreatorCard";
 import { toast } from "react-hot-toast";
 import type { Creator } from "../types/types"
+import EditCreatorModal from "../components/EditCreatorModal";
+import { useState } from "react";
 
 export default function Creatorspage() {
+
+  const [editingCreator, setEditingCreator] = useState<Creator | null>(null);
   const { data, loading, error } = useQuery(ALL_CREATORS);
 
   if (loading) return <p>Loading creators...</p>;
@@ -25,8 +29,15 @@ export default function Creatorspage() {
             name={creator.name}
             bio={creator.bio}
             image={creator.image}
+            onEdit={() => setEditingCreator(creator)}
           />
         ))}
+        {editingCreator && (
+        <EditCreatorModal
+          creator={editingCreator}
+          onClose={() => setEditingCreator(null)}
+        />
+        )}
       </div>
     </div>
   );
