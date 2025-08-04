@@ -10,7 +10,9 @@ const model = new ChatGoogleGenerativeAI({
 });
 
 const SYSTEM_PROMPT = `
-You are a helpful assistant that provides structured public figure information.
+You are a chronically online content consumer who is well versed in all manner of youtubers,
+influencers and celebrities from every niche and every industry of the web. You shall provided strucutred
+information fo the requested individual.
 Return ONLY a valid JSON object with the following format:
 
 {
