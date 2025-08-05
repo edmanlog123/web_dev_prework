@@ -51,15 +51,15 @@ The following **additional** features are implemented:
 
 Here's a walkthrough of implemented required features:
 
-👉🏿<img src='http://i.imgur.com/yourgif.gif' title='Video Walkthrough' width='600' alt='Video Walkthrough' />
+https://drive.google.com/file/d/1qHKwPzhm5U37npOCZFxIdgcH1iwlu9oV/view?usp=sharing
 
-GIF created with **Kap**
+I had to use an MP4 with google drive
 
 ---
 
 ## Notes
 
-This was a fun but challenging project. The Gemini API integration took a while to get right due to rate limits and async handling. I also spent time tweaking the modals and routing to make the UX feel smooth and modern. This prework taught me a lot about structuring a React + GraphQL project and managing complex state.
+This was a fun but challenging project. The Gemini API integration took a while to get right due to rate limits and async handling. I also spent time tweaking the modals and routing to make the UX feel smooth and modern. This prework taught me a lot about structuring a React + GraphQL project and managing complex state. I had torubel adding the video
 
 ---
 
